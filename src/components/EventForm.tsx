@@ -29,7 +29,7 @@ interface JsonData {
 }
 
 interface PropsData {
-  open:boolean
+  open:true | false
   handleClose: () => void
   addItem: (data:JsonData) => void 
   defaultValues?:JsonData | null

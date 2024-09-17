@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, test, vi } from "vitest";
+import '@testing-library/jest-dom'; // Import jest-dom matchers
 import EventForm from "../../components/EventForm";
 
 // Mock the uuid library
@@ -38,7 +39,6 @@ describe("EventForm Component", () => {
     // Fill in the form
     fireEvent.change(screen.getByPlaceholderText("Event Name"), { target: { value: "Test Event" } });
     fireEvent.change(screen.getByPlaceholderText("Location"), { target: { value: "Test Location" } });
-    fireEvent.change(screen.getByPlaceholderText("Capacity"), { target: { value: "100" } });
     fireEvent.change(screen.getByPlaceholderText("Capacity"), { target: { value: "100" } });
     fireEvent.change(screen.getByLabelText("Date"), { target: { value: "2024-09-17T10:30" } });
 
