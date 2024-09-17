@@ -6,6 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -36,7 +37,9 @@ interface PropsData {
 
 const EventForm = ({ open, handleClose , addItem , defaultValues } : PropsData) => {
 
-  console.log("defaultValues => " , defaultValues);
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<JsonData>({
+    defaultValues: defaultValues || { eventName: '', date: '', location: '', description: '', capacity: 0 },
+  });
   
 
 
@@ -49,12 +52,14 @@ const EventForm = ({ open, handleClose , addItem , defaultValues } : PropsData) 
     reset();
     handleClose()
   }
+  
+  
 
-  console.log("defaultValues => " , defaultValues)
-
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
-    defaultValues: defaultValues || { eventName: '', date: '', location: '', description: '', capacity: '' },
-  });
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);  // Reset the form with new default values
+    }
+  }, [defaultValues, reset]);
 
   return (
     <Modal

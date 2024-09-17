@@ -1,16 +1,17 @@
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import moment from 'moment';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { useMemo, useState } from 'react';
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
+import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useMemo, useState } from "react";
+import ReduceCapacityIcon from "@mui/icons-material/ReduceCapacity";
 
 interface JsonDat {
   id: string;
@@ -25,11 +26,11 @@ type PropsData = {
   allData: JsonDat;
   deleteItem: (id: string) => void;
   editForm: (data: JsonDat) => void;
-}
+};
 
 export default function Cards({ allData, deleteItem, editForm }: PropsData) {
-
-  const [moreOrLess, setMoreOrLess] = useState<React.SetStateAction<boolean>>(false);
+  const [moreOrLess, setMoreOrLess] =
+    useState<React.SetStateAction<boolean>>(false);
 
   const descriptionText = useMemo(() => {
     return allData.description.length > 150
@@ -56,14 +57,20 @@ export default function Cards({ allData, deleteItem, editForm }: PropsData) {
               className="text-blue-500 cursor-pointer"
               onClick={() => setMoreOrLess(!moreOrLess)}
             >
-              {moreOrLess ? 'Less' : 'More'}
+              {moreOrLess ? "Less" : "More"}
             </span>
           )}
         </Typography>
       </CardContent>
-      <div className="pl-4 text-xs flex items-center text-gray-500">
-        <LocationOnIcon className="text-base mr-1" />
-        {allData.location}
+      <div className="pl-4 text-xs flex flex-col items-start gap-[5px] text-gray-500">
+        <div className="flex items-center">
+          <LocationOnIcon className="text-base mr-1" />
+          {allData.location}
+        </div>
+        <div className="flex items-center">
+          <ReduceCapacityIcon className="text-base mr-1" />
+          Capacity: {allData.capacity}
+        </div>
       </div>
       <CardActions disableSpacing>
         <IconButton aria-label="edit" onClick={() => editForm(allData)}>
